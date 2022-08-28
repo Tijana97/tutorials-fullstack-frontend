@@ -1,27 +1,32 @@
-import { useState } from "react";
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { decrement, increment, incrementByAmount} from './redux/counter/counterSlice'
 
 
 function App() {
-  const [counter, setCounter] = useState(0)
-  const [showError, setshowError] = useState(false)
+
+  const counter = useSelector((state) => state.counter.value)
+  const dispatch = useDispatch()
+  const [input, setInput] = useState('')
 
   const increaseVal = () =>{
-    if(showError){
-      setshowError(false)
-    }
-    setCounter(counter+1)
+    dispatch(increment())
   }
 
   const decreaseVal = () => {
-    if(counter === 0){
-      setshowError(true)
-      return
-    } 
-    setCounter(counter-1)
+    dispatch(decrement())
+  }
+
+  const onChangeValue = (event) => {
+    setInput(event.target.value)
+  }
+
+  const increaseValByAmount = () =>{
+    dispatch(incrementByAmount(Number(input)))
   }
 
   return (
-
+    <>
     <div>
 
       <div style={{
@@ -32,12 +37,10 @@ function App() {
         <button onClick={increaseVal}>+</button>
       </div>
 
-      {showError && 
-        (<div style = {{background: "blue"}}>
-        Value cannot be lower than zero!
-      </div>)}
-
     </div>
+    <input value = {input} onChange = {onChangeValue}></input>
+    <button onClick={increaseValByAmount}>Add amount</button>
+    </>
   );
 }
 
