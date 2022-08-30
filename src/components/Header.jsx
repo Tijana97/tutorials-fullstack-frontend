@@ -1,13 +1,16 @@
 import { useNavigate } from 'react-router-dom'
 import { AppBar, Container , Box, Button} from '@mui/material';
+
 import { useEffect, useState } from 'react';
 import fetchData from '../fetch/index';
+
 
 const pages = ['Categories', 'Subcategories', 'Items'];
 
 const AppHeader = () => {
 
     const navigate = useNavigate()
+
     const [categories, setCategories] = useState([])
 
     const routeToPage = (page) => {
@@ -24,6 +27,7 @@ const AppHeader = () => {
         fetchAllCategories()
 
     })
+
 
     return (
         <AppBar position="static" style={{ background: '#2E3B55' }}>
